@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remover Fundo</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://media.giphy.com/media/MJkPUQgZZHZ5jYHwlF/giphy.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .text-generator-container {
+            padding: 20px;
+        }
+
+        .font-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .font-list li {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .generated-text {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        /* Custom styles */
+        body {
+            background-color: #d69cad;
+        }
+
+        .navbar {
+            background-color: #e9b4cc;
+        }
+
+        .navbar .navbar-brand {
+            color: #e01548;
+        }
+
+        .navbar .navbar-nav .nav-link {
+            color: #8f2168;
+        }
+    </style>
+</head>
+
+<body >
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Início</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Redimensionador.html">Redimensionador</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerador%20cod%20barras.html">Gerador de Cod Barras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Removerfundos.html">Remover Fundo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerador de Texto.html">Trocar Fonte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerar qr.html">Gerador Qr Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Sobre.html">Sobre</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h3>Aguarde a remoção do fundo</h3>
+        <h1 class="text-center mt-5">Remover Fundo</h1>
+        
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <input type="file" id="image-input" class="form-control" onchange="previewImage(event)">
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-6">
+                <button onclick="removeBackground()" class="btn btn-primary btn-block">Remover Fundo</button>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center mt-3 preview-result-container">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <h3>Pré-visualização</h3>
+                        <img id="preview-image" src="" alt="Preview Image" class="img-fluid" style="display: none;">
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h3>Resultado</h3>
+                        <a id="result-download" href="#" download="result.png">
+                            <img id="result-image" src="" alt="Result Image" class="img-fluid" style="display: none;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const previewImage = document.getElementById('preview-image');
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeBackground() {
+            const apiKey = '7perQ3NMEnhCCUegM5vKGhxU'; // Sua chave de API Remove.bg
+            const input = document.getElementById('image-input');
+            const file = input.files[0];
+
+            const formData = new FormData();
+            formData.append('image_file', file);
+
+            fetch('https://api.remove.bg/v1.0/removebg', {
+                method: 'POST',
+                headers: {
+                    'X-Api-Key': apiKey
+                },
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao remover o fundo da imagem');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const imageURL = URL.createObjectURL(blob);
+                    const resultImage = document.getElementById('result-image');
+                    const resultDownload = document.getElementById('result-download');
+                    resultImage.src = imageURL;
+                    resultImage.style.display = 'block';
+                    resultDownload.href = imageURL;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>

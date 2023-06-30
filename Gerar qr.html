@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato - CandyColor</title>
+  <!-- Inclua o CSS do Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Inclua o seu arquivo CSS personalizado -->
+  <link rel="stylesheet" href="#">
+  <style>
+    body {
+      background-image: url('https://media.giphy.com/media/MJkPUQgZZHZ5jYHwlF/giphy.gif');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .text-generator-container {
+      padding: 20px;
+    }
+
+    .qr-code {
+      max-width: 200px;
+      margin: 10px;
+    }
+  </style>
+
+  <title>QR Code Generator</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Início</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Redimensionador.html">Redimensionador</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Gerador%20cod%20barras.html">Gerador de Cod Barras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Removerfundos.html">Remover Fundo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Gerador de Texto.html">Trocar Fonte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Gerar qr.html">Gerador Qr Code</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Sobre.html">Sobre</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+  <div class="container-fluid">
+    <div class="text-center">
+
+      <!-- Get a Placeholder image initially,
+       this will change according to the
+       data entered later -->
+      <img src="https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0"
+        class="qr-code img-thumbnail img-responsive" />
+    </div>
+
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="content">
+          Link ou Texto:
+        </label>
+        <div class="col-sm-10">
+
+          <!-- Input box to enter the
+              required data -->
+          <input type="text" size="60" maxlength="60" class="form-control" id="content" placeholder="Coloque Aqui" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+
+          <!-- Button to generate QR Code for
+           the entered data -->
+          <button type="button" class="btn btn-primary" id="generate">
+            Gerar Qr
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Function to HTML encode the text
+    // This creates a new hidden element,
+    // inserts the given text into it
+    // and outputs it out as HTML
+    function htmlEncode(value) {
+      return $('<div/>').text(value).html();
+    }
+
+    $(function () {
+      // Specify an onclick function
+      // for the generate button
+      $('#generate').click(function () {
+        // Generate the link that would be
+        // used to generate the QR Code
+        // with the given data
+        let finalURL =
+          'https://chart.googleapis.com/chart?cht=qr&chl=' +
+          htmlEncode($('#content').val()) +
+          '&chs=160x160&chld=L|0';
+
+        // Replace the src of the image with
+        // the QR code image
+        $('.qr-code').attr('src', finalURL);
+      });
+    });
+  </script>
+</body>
+
+</html>

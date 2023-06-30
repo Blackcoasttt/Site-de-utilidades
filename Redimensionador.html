@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Imagens</title>
+  <link rel="stylesheet" href="#">
+  <!-- Inclua o CSS do Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<style>
+    body {
+            background-image: url('https://media.giphy.com/media/MJkPUQgZZHZ5jYHwlF/giphy.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .text-generator-container {
+            padding: 20px;
+        }
+
+        .font-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .font-list li {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .generated-text {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        /* Custom styles */
+        body {
+            background-color: #d4134d;
+        }
+
+        .navbar {
+            background-color: #e791b9;
+        }
+
+        .navbar .navbar-brand {
+            color: #e01548;
+        }
+
+        .navbar .navbar-nav .nav-link {
+            color: #f00a9f;
+        }
+</style>
+</head>
+<body >
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Início</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Redimensionador.html">Redimensionador</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Gerador%20cod%20barras.html">Gerador de Cod Barras</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Removerfundos.html">Remover Fundo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Gerador de Texto.html">Trocar Fonte</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Gerar qr.html">Gerador Qr Code</a>
+          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Sobre.html">Sobre</a>
+            </li>
+            
+        </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+ 
+
+  <div class="container mt-5"> <!-- Adicionei a classe mt-5 para adicionar margem superior -->
+    <h1 class="text-center">Redimensionador de Imagens</h1>
+    <div class="card">
+      <div class="card-body">
+        <form id="image-form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="size-select">Escolha o tamanho da imagem:</label>
+                <select class="form-control" id="size-select">
+                  <option value="3x4">3x4</option>
+                  <option value="5x9">5x9</option>
+                  <option value="10x15">10x15</option>
+                  <option value="8x10">8x10</option>
+                  <option value="13x18">13x18</option>
+                  <option value="20x25">20x25</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="image-input">Escolha a imagem:</label>
+                <input type="file" class="form-control" id="image-input">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="quality-select">Escolha a qualidade da imagem:</label>
+                <select class="form-control" id="quality-select">
+                  <option value="0.9">Alta</option>
+                  <option value="0.7">Média</option>
+                  <option value="0.5">Baixa</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="image-preview">Pré-visualização:</label>
+                <div id="image-preview" class="image-preview"></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" id="gerar-imagem-btn">Gerar Imagem</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="image-container"></div>
+  </div>
+
+  <!-- Inclua o JavaScript do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

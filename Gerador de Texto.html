@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Texto</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
+    <style>
+         body {
+            background-image: url('https://media.giphy.com/media/MJkPUQgZZHZ5jYHwlF/giphy.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .text-generator-container {
+            padding: 20px;
+        }
+
+        .font-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .font-list li {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .generated-text {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        /* Custom styles */
+        body {
+            background-color: #f50c52;
+        }
+
+        .navbar {
+            background-color: #e00a6e;
+        }
+
+        .navbar .navbar-brand {
+            color: #e01548;
+        }
+
+        .navbar .navbar-nav .nav-link {
+            color: #b60879;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Início</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Redimensionador.html">Redimensionador</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerador%20cod%20barras.html">Gerador de Cod Barras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Removerfundos.html">Remover Fundo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerador de Texto.html">Trocar Fonte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Gerar qr.html">Gerador Qr Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Sobre.html">Sobre</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="text-center mt-5">Gerador de Texto</h1>
+
+        <div class="row justify-content-center text-generator-container">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input-text">Digite seu texto:</label>
+                    <input type="text" class="form-control" id="input-text">
+                </div>
+
+                <div class="form-group">
+                    <label for="font-select">Selecione uma fonte:</label>
+                    <select class="form-select" id="font-select"></select>
+                </div>
+
+                <button class="btn btn-primary btn-block" onclick="generateText()">Gerar Texto</button>
+                <button class="btn btn-secondary btn-block" onclick="clearSelection()">Limpar Seleção</button>
+
+                <div class="generated-text" id="generated-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const fontList = [
+            "Waltograph",
+            "ShadesRech0",
+            "Euphoria Script",
+            "Old Dreams",
+            "MCF Funera",
+            "Baline Script",
+            "Arial",
+            "Helvetica",
+            "Verdana",
+            "Tahoma",
+            "Trebuchet MS",
+            "Times New Roman",
+            "Georgia",
+            "Garamond",
+            "Courier New",
+            "Lucida Console",
+            "Impact",
+            "Comic Sans MS",
+            "Arial Black",
+            "Consolas"
+        ];
+
+        function generateText() {
+            const inputText = document.getElementById('input-text').value;
+            const fontSelect = document.getElementById('font-select');
+            const selectedFont = fontSelect.value;
+            const generatedText = document.getElementById('generated-text');
+
+            generatedText.innerText = inputText;
+            generatedText.style.fontFamily = selectedFont;
+        }
+
+        function populateFontOptions() {
+            const fontSelect = document.getElementById('font-select');
+
+            for (let i = 0; i < fontList.length; i++) {
+                const option = document.createElement('option');
+                option.text = fontList[i];
+                fontSelect.add(option);
+            }
+        }
+
+        function clearSelection() {
+            const fontSelect = document.getElementById('font-select');
+            fontSelect.selectedIndex = 0;
+        }
+
+        populateFontOptions();
+    </script>
+</body>
+
+</html>
